@@ -116,6 +116,9 @@ const updateUserSubscription = async (req, res) => {
 
 const updateAvatar = async (req, res) => {
   const { _id } = req.user;
+  if (!req.file) {
+    res.status(400).json("File upload error");
+  }
   const { path: tempUpload, originalname } = req.file;
 
   const fileName = `${_id}_${originalname}`;
