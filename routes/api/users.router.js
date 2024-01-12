@@ -10,6 +10,10 @@ const { schemas } = require("../../models/users");
 const router = express.Router();
 //signup
 router.post("/register", validateBody(schemas.registerSchema), ctrl.register);
+//verify enmail
+router.get("/verify/:verificationToken", ctrl.verifyEmail);
+//resend verify email
+router.post("/verify", validateBody(schemas.emailSchema), ctrl.resendVerifyEmail);
 //signin
 router.post("/login", validateBody(schemas.loginSchema), ctrl.login);
 //current user
@@ -20,5 +24,6 @@ router.post("/logout", authenticate, ctrl.logout);
 router.patch("/", authenticate, ctrl.updateUserSubscription);
 //update avatar
 router.patch("/avatars", authenticate, upload.single("avatar"), ctrl.updateAvatar);
+
 
 module.exports = router;
